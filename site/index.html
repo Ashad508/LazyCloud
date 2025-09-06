@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lazy Cloud - Premium Hosting Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: #333;
+            line-height: 1.6;
+            background-color: #f8fafc;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #3498db;
+            color: #3498db;
+        }
+        
+        .btn-outline:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .btn-discord {
+            background-color: #5865f2;
+        }
+        
+        .btn-discord:hover {
+            background-color: #4752c4;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #3498db;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: #2c3e50;
+            font-weight: 300;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 32px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: #3498db;
+        }
+        
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(to right, #f0f8ff, #e6f2ff);
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #5a6c7d;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        /* Tabs Section */
+        .tabs {
+            padding: 60px 0;
+            background-color: white;
+        }
+        
+        .tab-headers {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 12px 24px;
+            background: #eaf2f8;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn.active {
+            background: #3498db;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: #5a6c7d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Pricing Cards */
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            padding: 40px 30px;
+            transition: transform 0.3s ease;
+            border-top: 4px solid #5dade2;
+            position: relative;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .pricing-card.popular {
+            border-top: 4px solid #3498db;
+        }
+        
+        .popular-tag {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #3498db;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: #7f8c8d;
+        }
+        
+        .features {
+            margin: 25px 0;
+        }
+        
+        .features li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .features li i {
+            color: #3498db;
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .pricing-card .btn {
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 80px 0;
+            background: linear-gradient(to right, #f0f8ff, #e6f2ff);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-item {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .feature-item h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(to right, #3498db, #5dade2);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        .cta .btn {
+            background: white;
+            color: #3498db;
+        }
+        
+        .cta .btn:hover {
+            background: #f0f4ff;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: #5dade2;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #5dade2;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #34495e;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: #3498db;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .tab-headers {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        /* Purchase Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        /* Purchase Steps */
+        .purchase-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .purchase-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 1;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .step.active .step-number {
+            background: #3498db;
+            color: white;
+        }
+        
+        .step.completed .step-number {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .step-text {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        .step.active .step-text {
+            color: #3498db;
+            font-weight: 600;
+        }
+        
+        /* QR Code Section */
+        .qr-section {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .payment-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .payment-info h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .payment-info ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        
+        .payment-info li {
+            margin-bottom: 8px;
+            color: #5a6c7d;
+        }
+        
+        .success-checkmark {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .success-checkmark i {
+            font-size: 60px;
+            color: #2ecc71;
+        }
+        
+        .success-checkmark h3 {
+            margin-top: 15px;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo"><i class="fas fa-cloud"></i>Lazy <span>Cloud</span></a>
+                
+                <ul class="nav-menu">
+                    <li><a href="#" class="tab-link" data-tab="vps">VPS Hosting</a></li>
+                    <li><a href="#" class="tab-link" data-tab="minecraft">Minecraft</a></li>
+                    <li><a href="#" class="tab-link" data-tab="bot">Bot Hosting</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <a href="#" class="btn btn-outline" id="login-btn">Login</a>
+                    <a href="https://discord.gg/mBewVVjf" class="btn btn-discord">Join Discord</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Premium Cloud Hosting Solutions</h1>
+            <p>High-performance VPS, Minecraft, and Bot hosting with 99.9% uptime guarantee and 24/7 support</p>
+            <div class="hero-buttons">
+                <a href="#" class="tab-link btn" data-tab="vps">VPS Hosting</a>
+                <a href="#" class="tab-link btn" data-tab="minecraft">Minecraft</a>
+                <a href="#" class="tab-link btn" data-tab="bot">Bot Hosting</a>
+                <a href="https://discord.gg/mBewVVjf" class="btn btn-discord">Discord Support</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabs Section -->
+    <section class="tabs">
+        <div class="container">
+            <div class="tab-headers">
+                <div class="tab-btn active" data-tab="vps">VPS Hosting</div>
+                <div class="tab-btn" data-tab="minecraft">Minecraft Hosting</div>
+                <div class="tab-btn" data-tab="bot">Bot Hosting</div>
+            </div>
+            
+            <!-- VPS Hosting Tab -->
+            <div class="tab-content active" id="vps">
+                <div class="section-title">
+                    <h2>VPS Hosting Plans</h2>
+                    <p>Powered by AMD RYZEN R7 5700X for maximum performance</p>
+                </div>
+                
+                <div class="pricing-cards">
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Plan 1</h3>
+                        <div class="price">₹150 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 4 GB DDR4 RAM</li>
+                            <li><i class="fas fa-microchip"></i> 2 CPU Cores</li>
+                            <li><i class="fas fa-hdd"></i> 20 GB NVMe SSD</li>
+                            <li><i class="fas fa-tachometer-alt"></i> Dedicated IPv4/IPv6</li>
+                            <li><i class="fas fa-network-wired"></i> 1Gbps Network</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="VPS Plan 1" data-price="150">Purchase Now</a>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Plan 2</h3>
+                        <div class="price">₹400 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 8 GB DDR4 RAM</li>
+                            <li><i class="fas fa-microchip"></i> 4 CPU Cores</li>
+                            <li><i class="fas fa-hdd"></i> 50 GB NVMe SSD</li>
+                            <li><i class="fas fa-tachometer-alt"></i> Dedicated IPv4/IPv6</li>
+                            <li><i class="fas fa-network-wired"></i> 1Gbps Network</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="VPS Plan 2" data-price="400">Purchase Now</a>
+                    </div>
+                    
+                    <div class="pricing-card popular">
+                        <div class="popular-tag">MOST POPULAR</div>
+                        <h3 class="plan-name">Plan 3</h3>
+                        <div class="price">₹600 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 16 GB DDR4 RAM</li>
+                            <li><i class="fas fa-microchip"></i> 6 CPU Cores</li>
+                            <li><i class="fas fa-hdd"></i> 100 GB NVMe SSD</li>
+                            <li><i class="fas fa-tachometer-alt"></i> Dedicated IPv4/IPv6</li>
+                            <li><i class="fas fa-network-wired"></i> 1Gbps Network</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="VPS Plan 3" data-price="600">Purchase Now</a>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Plan 4</h3>
+                        <div class="price">₹1000 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 32 GB DDR4 RAM</li>
+                            <li><i class="fas fa-microchip"></i> 8 CPU Cores</li>
+                            <li><i class="fas fa-hdd"></i> 300 GB NVMe SSD</li>
+                            <li><i class="fas fa-tachometer-alt"></i> Dedicated IPv4/IPv6</li>
+                            <li><i class="fas fa-network-wired"></i> 1Gbps Network</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="VPS Plan 4" data-price="1000">Purchase Now</a>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Plan 5</h3>
+                        <div class="price">₹1500 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 48 GB DDR4 RAM</li>
+                            <li><i class="fas fa-microchip"></i> 10 CPU Cores</li>
+                            <li><i class="fas fa-hdd"></i> 300 GB NVMe SSD</li>
+                            <li><i class="fas fa-tachometer-alt"></i> Dedicated IPv4/IPv6</li>
+                            <li><i class="fas fa-network-wired"></i> 1Gbps Network</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="VPS Plan 5" data-price="1500">Purchase Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Minecraft Hosting Tab -->
+            <div class="tab-content" id="minecraft">
+                <div class="section-title">
+                    <h2>Minecraft Hosting Plans</h2>
+                    <p>High-performance Minecraft servers with unlimited player slots</p>
+                </div>
+                
+                <div class="pricing-cards">
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Dirt Plan</h3>
+                        <div class="price">₹60 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 2GB DDR4 RAM</li>
+                            <li><i class="fas fa-microchip"></i> 1 vCPU Core</li>
+                            <li><i class="fas fa-hdd"></i> 10GB NVMe SSD</li>
+                            <li><i class="fas fa-users"></i> Unlimited Player Slots</li>
+                            <li><i class="fas fa-key"></i> Full SFTP Access</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="Minecraft Dirt Plan" data-price="60">Purchase Now</a>
+                    </div>
+                    
+                    <div class="pricing-card popular">
+                        <div class="popular-tag">MOST POPULAR</div>
+                        <h3 class="plan-name">Wood Plan</h3>
+                        <div class="price">₹120 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 4GB DDR4 RAM</li>
+                            <li><i class="fas fa-microchip"></i> 1.5 vCPU Cores</li>
+                            <li><i class="fas fa-hdd"></i> 20GB NVMe SSD</li>
+                            <li><i class="fas fa-users"></i> Unlimited Player Slots</li>
+                            <li><i class="fas fa-key"></i> Full SFTP Access</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="Minecraft Wood Plan" data-price="120">Purchase Now</a>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Coal Plan</h3>
+                        <div class="price">₹190 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 6GB DDR4 RAM</li>
+                            <li><i class="fas fa-microchip"></i> 2 vCPU Cores</li>
+                            <li><i class="fas fa-hdd"></i> 40GB NVMe SSD</li>
+                            <li><i class="fas fa-users"></i> Unlimited Player Slots</li>
+                            <li><i class="fas fa-key"></i> Full SFTP Access</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="Minecraft Coal Plan" data-price="190">Purchase Now</a>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Copper Plan</h3>
+                        <div class="price">₹240 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 8GB DDR4 RAM</li>
+                            <li><i class="fas fa-microchip"></i> 2 vCPU Cores</li>
+                            <li><i class="fas fa-hdd"></i> 40GB NVMe SSD</li>
+                            <li><i class="fas fa-users"></i> Unlimited Player Slots</li>
+                            <li><i class="fas fa-key"></i> Full SFTP Access</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="Minecraft Copper Plan" data-price="240">Purchase Now</a>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Iron Plan</h3>
+                        <div class="price">₹360 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 12GB DDR4 RAM</li>
+                            <li><i class="fas fa-microchip"></i> 3 vCPU Cores</li>
+                            <li><i class="fas fa-hdd"></i> 50GB NVMe SSD</li>
+                            <li><i class="fas fa-users"></i> Unlimited Player Slots</li>
+                            <li><i class="fas fa-key"></i> Full SFTP Access</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="Minecraft Iron Plan" data-price="360">Purchase Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bot Hosting Tab -->
+            <div class="tab-content" id="bot">
+                <div class="section-title">
+                    <h2>Bot Hosting Plans</h2>
+                    <p>Lightweight, stable, and optimized bot hosting solutions</p>
+                </div>
+                
+                <div class="pricing-cards">
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Basic Bot</h3>
+                        <div class="price">₹30 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 124MB RAM</li>
+                            <li><i class="fas fa-microchip"></i> 20% CPU</li>
+                            <li><i class="fas fa-hdd"></i> 512MB SSD</li>
+                            <li><i class="fas fa-robot"></i> 1 Bot Slot</li>
+                            <li><i class="fas fa-server"></i> 1Gbps Network</li>
+                            <li><i class="fas fa-copy"></i> 1 Backup</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="Bot Basic Plan" data-price="30">Purchase Now</a>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Common Bot</h3>
+                        <div class="price">₹50 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 256MB RAM</li>
+                            <li><i class="fas fa-microchip"></i> 45% CPU</li>
+                            <li><i class="fas fa-hdd"></i> 1GB SSD</li>
+                            <li><i class="fas fa-robot"></i> 1 Bot Slot</li>
+                            <li><i class="fas fa-server"></i> 1Gbps Network</li>
+                            <li><i class="fas fa-copy"></i> 1 Backup</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="Bot Common Plan" data-price="50">Purchase Now</a>
+                    </div>
+                    
+                    <div class="pricing-card popular">
+                        <div class="popular-tag">RECOMMENDED</div>
+                        <h3 class="plan-name">Uncommon Bot</h3>
+                        <div class="price">₹70 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 512MB RAM</li>
+                            <li><i class="fas fa-microchip"></i> 75% CPU</li>
+                            <li><i class="fas fa-hdd"></i> 2GB SSD</li>
+                            <li><i class="fas fa-robot"></i> 2 Bot Slots</li>
+                            <li><i class="fas fa-server"></i> 1Gbps Network</li>
+                            <li><i class="fas fa-copy"></i> 2 Backups</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="Bot Uncommon Plan" data-price="70">Purchase Now</a>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Epic Bot</h3>
+                        <div class="price">₹120 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 1GB RAM</li>
+                            <li><i class="fas fa-microchip"></i> 100% CPU</li>
+                            <li><i class="fas fa-hdd"></i> 4GB SSD</li>
+                            <li><i class="fas fa-robot"></i> 3 Bot Slots</li>
+                            <li><i class="fas fa-server"></i> 1Gbps Network</li>
+                            <li><i class="fas fa-copy"></i> 2 Backups</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="Bot Epic Plan" data-price="120">Purchase Now</a>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Rare Bot</h3>
+                        <div class="price">₹200 <span>/month</span></div>
+                        <ul class="features">
+                            <li><i class="fas fa-memory"></i> 2GB RAM</li>
+                            <li><i class="fas fa-microchip"></i> 150% CPU</li>
+                            <li><i class="fas fa-hdd"></i> 6GB SSD</li>
+                            <li><i class="fas fa-robot"></i> 4 Bot Slots</li>
+                            <li><i class="fas fa-server"></i> 1Gbps Network</li>
+                            <li><i class="fas fa-copy"></i> 4 Backups</li>
+                        </ul>
+                        <a href="#" class="btn purchase-btn" data-plan="Bot Rare Plan" data-price="200">Purchase Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Lazy Cloud?</h2>
+                <p>We provide everything you need for reliable and high-performance hosting</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Powerful Hardware</h3>
+                    <p>Our servers are equipped with AMD Ryzen processors and NVMe SSDs for maximum performance.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>DDoS Protection</h3>
+                    <p>Advanced DDoS protection keeps your services online even during attacks.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Our team of experts is available around the clock to assist you.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Easy Scaling</h3>
+                    <p>Easily upgrade your resources as your needs grow.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-backup"></i>
+                    </div>
+                    <h3>Automated Backups</h3>
+                    <p>Regular automated backups to keep your data safe.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>High-Speed Network</h3>
+                    <p>1Gbps network connections ensure low latency and fast transfers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Get Started?</h2>
+            <p>Join thousands of satisfied customers and deploy your server in minutes.</p>
+            <a href="#" class="btn" id="cta-purchase">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Lazy Cloud</h3>
+                    <p>Providing reliable hosting solutions with top-notch performance and support.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">VPS Hosting</a></li>
+                        <li><a href="#">Minecraft Hosting</a></li>
+                        <li><a href="#">Bot Hosting</a></li>
+                        <li><a href="#">Discord Bots</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Knowledge Base</a></li>
+                        <li><a href="#">Server Status</a></li>
+                        <li><a href="https://discord.gg/mBewVVjf">Discord Support</a></li>
+                        <li><a href="#">Submit Ticket</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Lazy Cloud. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Purchase Modal -->
+    <div class="modal" id="purchase-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            
+            <div class="purchase-steps">
+                <div class="step active" id="step-1">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Details</div>
+                </div>
+                <div class="step" id="step-2">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Payment</div>
+                </div>
+                <div class="step" id="step-3">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Complete</div>
+                </div>
+            </div>
+            
+            <!-- Step 1: Customer Details -->
+            <div id="purchase-step-1">
+                <h2 style="text-align: center; margin-bottom: 20px;">Enter Your Details</h2>
+                <form id="customer-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="plan">Selected Plan</label>
+                        <input type="text" id="plan" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" id="price" readonly>
+                    </div>
+                    <button type="button" class="btn" id="to-step-2" style="width: 100%;">Continue to Payment</button>
+                </form>
+            </div>
+            
+            <!-- Step 2: QR Payment -->
+            <div id="purchase-step-2" style="display: none;">
+                <h2 style="text-align: center; margin-bottom: 20px;">Complete Payment</h2>
+                
+                <div class="qr-section">
+                    <div class="qr-code">
+                        <img src="https://i.postimg.cc/2VT7myLG/image.png" alt="Payment QR Code">
+                    </div>
+                    <p>Scan the QR code to complete your payment</p>
+                </div>
+                
+                <div class="payment-info">
+                    <h3>Payment Instructions</h3>
+                    <ul>
+                        <li>Open your UPI payment app</li>
+                        <li>Scan the QR code above</li>
+                        <li>Enter the exact amount: <strong id="payment-amount"></strong></li>
+                        <li>Complete the payment</li>
+                        <li>Click the confirmation button below</li>
+                    </ul>
+                </div>
+                
+                <button type="button" class="btn" id="to-step-3" style="width: 100%; margin-top: 20px;">I've Completed the Payment</button>
+            </div>
+            
+            <!-- Step 3: Confirmation -->
+            <div id="purchase-step-3" style="display: none;">
+                <div class="success-checkmark">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Payment Successful!</h3>
+                </div>
+                
+                <div class="payment-info">
+                    <h3>Order Details</h3>
+                    <p><strong>Plan:</strong> <span id="confirm-plan"></span></p>
+                    <p><strong>Amount:</strong> <span id="confirm-price"></span></p>
+                    <p><strong>Email:</strong> <span id="confirm-email"></span></p>
+                    <p><strong>Order ID:</strong> LC<span id="order-id"></span></p>
+                </div>
+                
+                <p style="text-align: center; margin-top: 20px;">
+                    We've sent a confirmation email to your address. Our team will activate your service within 24 hours.
+                </p>
+                
+                <a href="https://discord.gg/mBewVVjf" class="btn" style="width: 100%; margin-top: 20px;">Join Discord for Support</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 20px;">Login to Your Account</h2>
+            <form>
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Login</button>
+                <p style="text-align: center; margin-top: 20px;">
+                    <a href="#" style="color: #3498db;">Forgot your password?</a>
+                </p>
+                <p style="text-align: center; margin-top: 10px;">
+                    Don't have an account? <a href="https://discord.gg/YhFX4sXA" style="color: #3498db;">Contact us on Discord</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const tabLinks = document.querySelectorAll('.tab-link');
+            
+            function openTab(tabId) {
+                tabBtns.forEach(btn => {
+                    btn.classList.remove('active');
+                    if(btn.getAttribute('data-tab') === tabId) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if(content.id === tabId) {
+                        content.classList.add('active');
+                    }
+                });
+            }
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabId = btn.getAttribute('data-tab');
+                    openTab(tabId);
+                });
+            });
+            
+            tabLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tabId = link.getAttribute('data-tab');
+                    openTab(tabId);
+                    
+                    // Scroll to tabs section
+                    document.querySelector('.tabs').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Login modal functionality
+            const loginModal = document.getElementById('login-modal');
+            const loginBtn = document.getElementById('login-btn');
+            const closeBtns = document.querySelectorAll('.close');
+            
+            loginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.style.display = 'flex';
+            });
+            
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    loginModal.style.display = 'none';
+                    purchaseModal.style.display = 'none';
+                });
+            });
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                }
+                if (e.target === purchaseModal) {
+                    purchaseModal.style.display = 'none';
+                }
+            });
+            
+            // Purchase functionality
+            const purchaseModal = document.getElementById('purchase-modal');
+            const purchaseBtns = document.querySelectorAll('.purchase-btn, #cta-purchase');
+            const toStep2Btn = document.getElementById('to-step-2');
+            const toStep3Btn = document.getElementById('to-step-3');
+            const planInput = document.getElementById('plan');
+            const priceInput = document.getElementById('price');
+            const paymentAmount = document.getElementById('payment-amount');
+            const confirmPlan = document.getElementById('confirm-plan');
+            const confirmPrice = document.getElementById('confirm-price');
+            const confirmEmail = document.getElementById('confirm-email');
+            const orderId = document.getElementById('order-id');
+            
+            let selectedPlan = '';
+            let selectedPrice = '';
+            let customerEmail = '';
+            
+            purchaseBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    if (btn.classList.contains('purchase-btn')) {
+                        selectedPlan = btn.getAttribute('data-plan');
+                        selectedPrice = '₹' + btn.getAttribute('data-price');
+                    } else {
+                        // If "Get Started" button is clicked, default to first plan
+                        selectedPlan = 'VPS Plan 1';
+                        selectedPrice = '₹150';
+                    }
+                    
+                    planInput.value = selectedPlan;
+                    priceInput.value = selectedPrice;
+                    paymentAmount.textContent = selectedPrice;
+                    confirmPlan.textContent = selectedPlan;
+                    confirmPrice.textContent = selectedPrice;
+                    
+                    // Reset form and show first step
+                    document.getElementById('purchase-step-1').style.display = 'block';
+                    document.getElementById('purchase-step-2').style.display = 'none';
+                    document.getElementById('purchase-step-3').style.display = 'none';
+                    
+                    document.getElementById('step-1').classList.add('active');
+                    document.getElementById('step-2').classList.remove('active');
+                    document.getElementById('step-3').classList.remove('active');
+                    
+                    purchaseModal.style.display = 'flex';
+                });
+            });
+            
+            toStep2Btn.addEventListener('click', () => {
+                const name = document.getElementById('name').value;
+                customerEmail = document.getElementById('email').value;
+                
+                if (name && customerEmail) {
+                    document.getElementById('purchase-step-1').style.display = 'none';
+                    document.getElementById('purchase-step-2').style.display = 'block';
+                    
+                    document.getElementById('step-1').classList.remove('active');
+                    document.getElementById('step-2').classList.add('active');
+                    
+                    confirmEmail.textContent = customerEmail;
+                    orderId.textContent = Math.floor(100000 + Math.random() * 900000);
+                } else {
+                    alert('Please fill in all fields');
+                }
+            });
+            
+            toStep3Btn.addEventListener('click', () => {
+                document.getElementById('purchase-step-2').style.display = 'none';
+                document.getElementById('purchase-step-3').style.display = 'block';
+                
+                document.getElementById('step-2').classList.remove('active');
+                document.getElementById('step-3').classList.add('active');
+            });
+            
+            // Add animation to elements on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe pricing cards
+            document.querySelectorAll('.pricing-card').forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+            
+            // Observe feature items
+            document.querySelectorAll('.feature-item').forEach(item => {
+                item.style.opacity = 0;
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
