@@ -282,6 +282,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            text-decoration: none;
         }
 
         .btn-primary {
@@ -379,6 +380,8 @@
             gap: 8px;
             margin-bottom: 40px;
             flex-wrap: wrap;
+            border-bottom: 2px solid var(--dark-border);
+            padding-bottom: 20px;
         }
 
         .plan-tab {
@@ -398,6 +401,20 @@
         .plan-tab.active {
             background-color: var(--primary);
             color: white;
+        }
+
+        .plan-category {
+            display: none;
+        }
+
+        .plan-category.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .plans-grid {
@@ -562,12 +579,15 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 16px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .event-table th {
             text-align: left;
             padding: 12px;
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.1);
             font-weight: 600;
             font-size: 0.9rem;
         }
@@ -778,6 +798,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            text-decoration: none;
         }
 
         .footer-link:hover {
@@ -801,6 +822,7 @@
             justify-content: center;
             transition: var(--transition);
             color: var(--dark-text);
+            text-decoration: none;
         }
 
         .social-link:hover {
@@ -815,6 +837,41 @@
             border-top: 1px solid var(--dark-border);
             color: var(--dark-text-light);
             font-size: 0.9rem;
+        }
+
+        /* Tables for Plans */
+        .plans-table-container {
+            background-color: var(--dark-card);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            overflow-x: auto;
+        }
+
+        .plans-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .plans-table th {
+            background-color: rgba(139, 92, 246, 0.2);
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .plans-table td {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .plans-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .plans-table tr:last-child td {
+            border-bottom: none;
         }
 
         /* Responsive */
@@ -839,6 +896,19 @@
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--dark-bg);
+                flex-direction: column;
+                padding: 20px;
+                border-top: 1px solid var(--dark-border);
+                box-shadow: var(--shadow);
+            }
+            
+            .nav-links.active {
+                display: flex;
             }
             
             .mobile-menu-btn {
@@ -861,6 +931,14 @@
             .plans-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 576px) {
@@ -870,11 +948,51 @@
             
             .btn {
                 width: 100%;
+                text-align: center;
             }
             
             .visual-features {
                 grid-template-columns: 1fr;
             }
+            
+            .plans-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .plan-tab {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Badge Styles */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-success {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--secondary);
+        }
+        
+        .badge-warning {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: var(--accent);
+        }
+        
+        .badge-danger {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+        
+        .badge-info {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: #3B82F6;
         }
     </style>
 </head>
@@ -936,10 +1054,10 @@
                 
                 <div class="hero-buttons">
                     <a href="#plans" class="btn btn-primary">
-                        <i class="fas fa-rocket"></i> Get Started
+                        <i class="fas fa-rocket"></i> View Plans
                     </a>
                     <a href="https://discord.gg/jqMj8jjcsg" target="_blank" class="btn btn-secondary">
-                        <i class="fab fa-discord"></i> Join Community
+                        <i class="fab fa-discord"></i> Join Discord
                     </a>
                 </div>
             </div>
@@ -948,7 +1066,7 @@
                 <div class="visual-card">
                     <div class="visual-header">
                         <div class="visual-title">NoverixCloud Hosting</div>
-                        <div class="visual-badge">Live Event</div>
+                        <div class="visual-badge">Live Event Active</div>
                     </div>
                     
                     <div class="visual-features">
@@ -995,69 +1113,88 @@
             </div>
             
             <!-- VPS Plans -->
-            <div class="plans-content">
-                <div class="plan-category active" id="vps-plans">
-                    <div class="plans-grid">
-                        <!-- VPS plans will be inserted by JavaScript -->
-                    </div>
+            <div class="plan-category active" id="vps-plans">
+                <div class="plans-grid">
+                    <!-- VPS plans will be inserted by JavaScript -->
                 </div>
                 
-                <!-- Minecraft Plans -->
-                <div class="plan-category" id="minecraft-plans">
-                    <div class="plans-grid">
-                        <!-- Minecraft plans will be inserted by JavaScript -->
+                <div style="background-color: var(--dark-card); border-radius: var(--border-radius); padding: 30px; margin-top: 30px;">
+                    <h3 style="margin-bottom: 20px; color: var(--primary);"><i class="fas fa-check-circle"></i> All VPS Plans Include</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div class="plan-feature"><i class="fas fa-check" style="color: var(--secondary);"></i> Full Root Access</div>
+                        <div class="plan-feature"><i class="fas fa-check" style="color: var(--secondary);"></i> INTEL XEON LATEST</div>
+                        <div class="plan-feature"><i class="fas fa-check" style="color: var(--secondary);"></i> DDoS Protection</div>
+                        <div class="plan-feature"><i class="fas fa-check" style="color: var(--secondary);"></i> IN Location</div>
+                        <div class="plan-feature"><i class="fas fa-check" style="color: var(--secondary);"></i> Ubuntu / Debian OS</div>
+                        <div class="plan-feature"><i class="fas fa-check" style="color: var(--secondary);"></i> NVMe Storage</div>
+                        <div class="plan-feature"><i class="fas fa-check" style="color: var(--secondary);"></i> Monthly Billing</div>
+                        <div class="plan-feature"><i class="fas fa-check" style="color: var(--secondary);"></i> Pterodactyl + Wings Supported</div>
+                        <div class="plan-feature"><i class="fas fa-check" style="color: var(--secondary);"></i> Private IPv4</div>
+                        <div class="plan-feature"><i class="fas fa-check" style="color: var(--secondary);"></i> Dedicated Specs</div>
+                        <div class="plan-feature"><i class="fas fa-times" style="color: var(--danger);"></i> No Refunds</div>
                     </div>
                 </div>
-                
-                <!-- Invite Plans -->
-                <div class="plan-category" id="invite-plans">
-                    <div style="background-color: var(--dark-card); border-radius: var(--border-radius); padding: 30px; margin-bottom: 30px;">
-                        <h3 style="margin-bottom: 20px; color: var(--primary);">🎁 NoverixCloud — Free Minecraft Hosting</h3>
-                        <p style="margin-bottom: 20px; color: var(--dark-text-light);">Invite-based free hosting plans. Same hardware as paid plans • Fair invite scaling</p>
-                        
-                        <div style="overflow-x: auto;">
-                            <table class="event-table">
-                                <thead>
-                                    <tr>
-                                        <th>Invites</th>
-                                        <th>RAM</th>
-                                        <th>CPU</th>
-                                        <th>Disk</th>
-                                        <th>Allocations</th>
-                                        <th>Databases</th>
-                                        <th>Backups</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="invite-plans-table">
-                                    <!-- Invite plans will be inserted by JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            </div>
+            
+            <!-- Minecraft Plans -->
+            <div class="plan-category" id="minecraft-plans">
+                <div class="plans-grid">
+                    <!-- Minecraft plans will be inserted by JavaScript -->
                 </div>
                 
-                <!-- Boost Plans -->
-                <div class="plan-category" id="boost-plans">
-                    <div style="background-color: var(--dark-card); border-radius: var(--border-radius); padding: 30px;">
-                        <h3 style="margin-bottom: 20px; color: var(--primary);">🔥 Boost Based Free Hosting Plans</h3>
-                        <p style="margin-bottom: 20px; color: var(--dark-text-light);">Boost the server → Unlock extreme performance. Best for High-TPS SMP • Modded Servers • Networks</p>
-                        
-                        <div style="overflow-x: auto;">
-                            <table class="event-table">
-                                <thead>
-                                    <tr>
-                                        <th>Boosts</th>
-                                        <th>RAM</th>
-                                        <th>CPU</th>
-                                        <th>Disk</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="boost-plans-table">
-                                    <!-- Boost plans will be inserted by JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div style="background-color: var(--dark-card); border-radius: var(--border-radius); padding: 30px; margin-top: 30px;">
+                    <h3 style="margin-bottom: 15px; color: var(--primary);"><i class="fas fa-server"></i> Hardware Standard</h3>
+                    <p style="margin-bottom: 15px; color: var(--dark-text-light);">Intel® Xeon® E5-2699 v4 (22C / 44T) • Beast-grade CPU scheduling • Enterprise DDR4 ECC RAM • Ultra-Fast NVMe Storage • 24/7 Monitoring & DDoS Protection</p>
+                    <p style="font-weight: 600; color: var(--primary);">NoverixCloud • Real Hardware. Real Performance.</p>
+                </div>
+            </div>
+            
+            <!-- Invite Plans -->
+            <div class="plan-category" id="invite-plans">
+                <div class="plans-table-container">
+                    <h3 style="margin-bottom: 20px; color: var(--primary); text-align: center;">🎁 NoverixCloud — Free Minecraft Hosting</h3>
+                    <p style="text-align: center; margin-bottom: 30px; color: var(--dark-text-light);">Invite-based free hosting plans. Same hardware as paid plans • Fair invite scaling</p>
+                    
+                    <table class="plans-table">
+                        <thead>
+                            <tr>
+                                <th>Invites</th>
+                                <th>RAM</th>
+                                <th>CPU</th>
+                                <th>Disk</th>
+                                <th>Allocations</th>
+                                <th>Databases</th>
+                                <th>Backups</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invite-plans-table">
+                            <!-- Invite plans will be inserted by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Boost Plans -->
+            <div class="plan-category" id="boost-plans">
+                <div class="plans-table-container">
+                    <h3 style="margin-bottom: 20px; color: var(--primary); text-align: center;">🔥 Boost Based Free Hosting Plans</h3>
+                    <p style="text-align: center; margin-bottom: 30px; color: var(--dark-text-light);">Boost the server → Unlock extreme performance. Best for High-TPS SMP • Modded Servers • Networks</p>
+                    
+                    <table class="plans-table">
+                        <thead>
+                            <tr>
+                                <th>Boosts</th>
+                                <th>RAM</th>
+                                <th>CPU</th>
+                                <th>Disk</th>
+                            </tr>
+                        </thead>
+                        <tbody id="boost-plans-table">
+                            <!-- Boost plans will be inserted by JavaScript -->
+                        </tbody>
+                    </table>
+                    
+                    <p style="text-align: center; margin-top: 30px; font-style: italic; color: var(--dark-text-light);">NoverixCloud • Boost the Server, Break the Limits</p>
                 </div>
             </div>
         </div>
@@ -1235,8 +1372,8 @@
                     <h3 class="footer-col-title">Contact</h3>
                     <ul class="footer-links">
                         <li><a href="https://discord.gg/jqMj8jjcsg" target="_blank" class="footer-link"><i class="fab fa-discord"></i> Discord Server</a></li>
-                        <li class="footer-link"><i class="fas fa-user"></i> Owner: Satyam</li>
-                        <li class="footer-link"><i class="fas fa-bolt"></i> Status: All Systems Operational</li>
+                        <li><span class="footer-link"><i class="fas fa-user"></i> Owner: Satyam</span></li>
+                        <li><span class="footer-link"><i class="fas fa-bolt"></i> Status: All Systems Operational</span></li>
                     </ul>
                 </div>
             </div>
@@ -1253,7 +1390,9 @@
         // Mobile Menu Toggle
         document.getElementById('mobileMenuBtn').addEventListener('click', function() {
             const navLinks = document.getElementById('navLinks');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-bars');
+            this.querySelector('i').classList.toggle('fa-times');
         });
 
         // Smooth scrolling for anchor links
@@ -1274,7 +1413,9 @@
                     
                     // Close mobile menu if open
                     if(window.innerWidth <= 768) {
-                        document.getElementById('navLinks').style.display = 'none';
+                        document.getElementById('navLinks').classList.remove('active');
+                        document.getElementById('mobileMenuBtn').querySelector('i').classList.remove('fa-times');
+                        document.getElementById('mobileMenuBtn').querySelector('i').classList.add('fa-bars');
                     }
                 }
             });
@@ -1296,7 +1437,10 @@
             { name: "8 GB", ram: "8 GB", cpu: "400% (Beast)", disk: "80 GB NVMe", allocations: "2", databases: "2", backups: "2", price: "₹119", period: "/ Month", category: "Mid-Range", featured: true },
             { name: "12 GB", ram: "12 GB", cpu: "550% (Beast)", disk: "120 GB NVMe", allocations: "3", databases: "2", backups: "3", price: "₹169", period: "/ Month", category: "Mid-Range", featured: false },
             { name: "16 GB", ram: "16 GB", cpu: "700% (Beast)", disk: "150 GB NVMe", allocations: "4", databases: "3", backups: "4", price: "₹219", period: "/ Month", category: "Mid-Range", featured: false },
-            { name: "24 GB", ram: "24 GB", cpu: "900% (Beast)", disk: "220 GB NVMe", allocations: "5", databases: "4", backups: "5", price: "₹299", period: "/ Month", category: "High Performance", featured: false }
+            { name: "24 GB", ram: "24 GB", cpu: "900% (Beast)", disk: "220 GB NVMe", allocations: "5", databases: "4", backups: "5", price: "₹299", period: "/ Month", category: "High Performance", featured: false },
+            { name: "32 GB", ram: "32 GB", cpu: "1200% (Beast)", disk: "300 GB NVMe", allocations: "6", databases: "4", backups: "6", price: "₹399", period: "/ Month", category: "High Performance", featured: false },
+            { name: "48 GB", ram: "48 GB", cpu: "1500% (Beast)", disk: "400 GB NVMe", allocations: "8", databases: "5", backups: "7", price: "₹479", period: "/ Month", category: "Event & Beast", featured: false },
+            { name: "64 GB", ram: "64 GB", cpu: "1800% (Beast)", disk: "500 GB NVMe", allocations: "10", databases: "6", backups: "8", price: "₹549", period: "/ Month", category: "Event & Beast", featured: false }
         ];
 
         const invitePlans = [
@@ -1307,7 +1451,9 @@
             { invites: "12 Invites", ram: "12 GB", cpu: "600%", disk: "60 GB", allocations: "3", databases: "2", backups: "3" },
             { invites: "16 Invites", ram: "16 GB", cpu: "800%", disk: "80 GB", allocations: "4", databases: "3", backups: "4" },
             { invites: "24 Invites", ram: "24 GB", cpu: "1200%", disk: "120 GB", allocations: "5", databases: "4", backups: "5" },
-            { invites: "32 Invites", ram: "32 GB", cpu: "1600%", disk: "160 GB", allocations: "6", databases: "4", backups: "6" }
+            { invites: "32 Invites", ram: "32 GB", cpu: "1600%", disk: "160 GB", allocations: "6", databases: "4", backups: "6" },
+            { invites: "48 Invites", ram: "48 GB", cpu: "2400%", disk: "240 GB", allocations: "8", databases: "5", backups: "7" },
+            { invites: "64 Invites", ram: "64 GB", cpu: "3200%", disk: "320 GB", allocations: "10", databases: "6", backups: "8" }
         ];
 
         const boostPlans = [
@@ -1349,27 +1495,27 @@
             {
                 title: "Refund Policy",
                 icon: "fa-ban",
-                content: "NoverixCloud operates on a <strong>no-refund policy</strong>. All sales are final. Before purchasing any service, please ensure that the service meets your requirements. We provide detailed specifications for all our plans to help you make an informed decision."
+                content: "NoverixCloud operates on a <strong>no-refund policy</strong>. All sales are final. Before purchasing any service, please ensure that the service meets your requirements. We provide detailed specifications for all our plans to help you make an informed decision. Exceptions to this policy may be considered on a case-by-case basis for service outages that exceed our 99.9% uptime SLA."
             },
             {
                 title: "Privacy Policy",
                 icon: "fa-user-shield",
-                content: "We respect your privacy and are committed to protecting your personal data. We collect only the information necessary to provide our services. We do not sell or share your personal information with third parties except as required to provide our services or by law."
+                content: "We respect your privacy and are committed to protecting your personal data. We collect only the information necessary to provide our services, including Discord username and ID for account management, email address for communication, and service usage data for monitoring and optimization. We do not sell or share your personal information with third parties except as required to provide our services or by law."
             },
             {
                 title: "Terms of Service",
                 icon: "fa-gavel",
-                content: "Services must not be used for illegal activities. Resource abuse is prohibited. Attempting to exploit or harm our infrastructure will result in immediate termination. You are responsible for maintaining backups of your data."
+                content: "By using NoverixCloud services, you agree to our Terms of Service: Services must not be used for illegal activities or content, resource abuse (mining, stress testing, etc.) is prohibited, attempting to exploit or harm our infrastructure will result in immediate termination, you are responsible for maintaining backups of your data, and we reserve the right to suspend services for policy violations."
             },
             {
                 title: "Uptime SLA",
                 icon: "fa-tachometer-alt",
-                content: "NoverixCloud guarantees 99.9% uptime for all paid services. If we fail to meet this SLA, you may be eligible for service credits. Free services are provided on a best-effort basis with no uptime guarantees."
+                content: "NoverixCloud guarantees 99.9% uptime for all paid services. If we fail to meet this SLA, you may be eligible for service credits. Scheduled maintenance (with advance notice) and circumstances beyond our control (force majeure) are excluded from this guarantee. Free services are provided on a best-effort basis with no uptime guarantees."
             },
             {
                 title: "Acceptable Use Policy",
                 icon: "fa-exclamation-triangle",
-                content: "Cryptocurrency mining, stress testing, hosting malicious content, spamming, or mass resource consumption affecting other users is prohibited. Violation may result in immediate service suspension without refund."
+                content: "To ensure fair usage and service stability for all customers, the following activities are prohibited: Cryptocurrency mining, stress testing or benchmarking without permission, hosting malicious content or engaging in hacking activities, spamming or phishing operations, and mass resource consumption affecting other users. Violation of this policy may result in immediate service suspension without refund."
             }
         ];
 
@@ -1382,11 +1528,13 @@
                 const planCard = document.createElement('div');
                 planCard.className = `plan-card ${plan.featured ? 'featured' : ''}`;
                 
+                let badge = '';
                 if(plan.featured) {
-                    planCard.innerHTML = `<div class="plan-badge">Most Popular</div>`;
+                    badge = `<div class="plan-badge">Most Popular</div>`;
                 }
                 
-                planCard.innerHTML += `
+                planCard.innerHTML = `
+                    ${badge}
                     <div class="plan-header">
                         <div class="plan-icon">${plan.icon}</div>
                         <h3 class="plan-name">${plan.name}</h3>
@@ -1439,18 +1587,20 @@
                 const planCard = document.createElement('div');
                 planCard.className = `plan-card ${plan.featured ? 'featured' : ''}`;
                 
+                let badge = '';
                 if(plan.featured) {
-                    planCard.innerHTML = `<div class="plan-badge">Best Value</div>`;
+                    badge = `<div class="plan-badge">Best Value</div>`;
                 }
                 
-                planCard.innerHTML += `
+                planCard.innerHTML = `
+                    ${badge}
                     <div class="plan-header">
                         <div class="plan-icon">🎮</div>
                         <h3 class="plan-name">${plan.name} Plan</h3>
                         <div class="plan-price">${plan.price}</div>
                         <div class="plan-period">${plan.period}</div>
                         <div style="margin-top: 8px;">
-                            <span class="badge" style="background-color: ${plan.category === 'Entry' ? 'var(--secondary)' : plan.category === 'Mid-Range' ? 'var(--primary)' : 'var(--accent)'}; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">${plan.category}</span>
+                            <span class="badge badge-${plan.category === 'Entry' ? 'success' : plan.category === 'Mid-Range' ? 'info' : 'warning'}">${plan.category}</span>
                         </div>
                     </div>
                     <div class="plan-features">
@@ -1535,6 +1685,102 @@
             events.forEach(event => {
                 const eventCard = document.createElement('div');
                 eventCard.className = 'event-card';
+                
+                let tableContent = '';
+                if(event.type === 'vps') {
+                    tableContent = `
+                        <p style="margin-bottom: 16px; font-weight: 600;">NoverixCloud • Stable • Secure • Scalable</p>
+                        <table class="event-table">
+                            <thead>
+                                <tr>
+                                    <th>Invites</th>
+                                    <th>RAM</th>
+                                    <th>Disk</th>
+                                    <th>CPU</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1× Invite</td>
+                                    <td>4 GB</td>
+                                    <td>50 GB NVMe</td>
+                                    <td>1 Core</td>
+                                </tr>
+                                <tr>
+                                    <td>2× Invites</td>
+                                    <td>8 GB</td>
+                                    <td>100 GB NVMe</td>
+                                    <td>4 Cores</td>
+                                </tr>
+                                <tr>
+                                    <td>4× Invites</td>
+                                    <td>12 GB</td>
+                                    <td>150 GB NVMe</td>
+                                    <td>8 Cores</td>
+                                </tr>
+                                <tr>
+                                    <td>8× Invites</td>
+                                    <td>24 GB</td>
+                                    <td>200 GB NVMe</td>
+                                    <td>12 Cores</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="margin-top: 20px; padding: 15px; background-color: rgba(255,255,255,0.05); border-radius: 8px;">
+                            <p style="font-size: 0.9rem; margin-bottom: 5px;"><i class="fas fa-info-circle"></i> Infrastructure & Policy</p>
+                            <p style="font-size: 0.85rem; color: var(--dark-text-light);">No public IPv4 included • Dedicated hardware allocation • Proxmox + Pterodactyl supported • 99.9% uptime SLA • Location: France 🇫🇷</p>
+                            <p style="font-size: 0.85rem; color: var(--accent); margin-top: 5px; font-weight: 600;">Free resources may be revoked if abused.</p>
+                        </div>
+                    `;
+                } else if(event.type === 'minecraft') {
+                    tableContent = `
+                        <div style="text-align: center; padding: 20px; background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; margin-top: 16px;">
+                            <h4 style="margin-bottom: 10px;">🥈 2 INVITES / 1 BOOSTS — ∞ POWER PLAN</h4>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 16px 0;">
+                                <div>
+                                    <div style="font-size: 1.2rem; font-weight: 700;">∞ Unlimited</div>
+                                    <div style="font-size: 0.9rem; opacity: 0.8;">RAM</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.2rem; font-weight: 700;">∞ Unlimited</div>
+                                    <div style="font-size: 0.9rem; opacity: 0.8;">CPU</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.2rem; font-weight: 700;">∞ Unlimited</div>
+                                    <div style="font-size: 0.9rem; opacity: 0.8;">Disk</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.2rem; font-weight: 700;">Unmetered</div>
+                                    <div style="font-size: 0.9rem; opacity: 0.8;">Bandwidth</div>
+                                </div>
+                            </div>
+                            <p style="font-weight: 600; color: var(--accent);">🔥 Powered By: Ryzen 9 9700 @ 5.47GHz</p>
+                        </div>
+                    `;
+                } else {
+                    tableContent = `
+                        <p style="margin-bottom: 16px;">Get free hosting by inviting friends to our Discord server or boosting it. Higher rewards for more invites/boosts!</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div>
+                                <h4 style="margin-bottom: 10px; color: var(--primary);">Invite Rewards</h4>
+                                <div style="font-size: 0.9rem;">
+                                    <p><i class="fas fa-check" style="color: var(--secondary);"></i> 1 Invite = 1GB RAM</p>
+                                    <p><i class="fas fa-check" style="color: var(--secondary);"></i> 5 Invites = 5GB RAM</p>
+                                    <p><i class="fas fa-check" style="color: var(--secondary);"></i> 10+ Invites = Premium Plan</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 10px; color: var(--primary);">Boost Rewards</h4>
+                                <div style="font-size: 0.9rem;">
+                                    <p><i class="fas fa-check" style="color: var(--secondary);"></i> 1 Boost = 16GB RAM</p>
+                                    <p><i class="fas fa-check" style="color: var(--secondary);"></i> 2 Boosts = 32GB RAM</p>
+                                    <p><i class="fas fa-check" style="color: var(--secondary);"></i> 4+ Boosts = Elite Plan</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
                 eventCard.innerHTML = `
                     <div class="event-header" style="background: linear-gradient(90deg, var(--${event.color}), var(--${event.color}-dark));">
                         <h3 class="event-title">${event.title}</h3>
@@ -1544,74 +1790,7 @@
                         <div class="event-features">
                             ${event.features.map(feature => `<span class="event-feature">${feature}</span>`).join('')}
                         </div>
-                        ${event.type === 'vps' ? `
-                            <p style="margin-bottom: 16px; font-weight: 600;">NoverixCloud • Stable • Secure • Scalable</p>
-                            <table class="event-table">
-                                <thead>
-                                    <tr>
-                                        <th>Invites</th>
-                                        <th>RAM</th>
-                                        <th>Disk</th>
-                                        <th>CPU</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1× Invite</td>
-                                        <td>4 GB</td>
-                                        <td>50 GB NVMe</td>
-                                        <td>1 Core</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2× Invites</td>
-                                        <td>8 GB</td>
-                                        <td>100 GB NVMe</td>
-                                        <td>4 Cores</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4× Invites</td>
-                                        <td>12 GB</td>
-                                        <td>150 GB NVMe</td>
-                                        <td>8 Cores</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        ` : event.type === 'minecraft' ? `
-                            <div style="text-align: center; padding: 20px; background-color: rgba(255, 255, 255, 0.05); border-radius: 8px; margin-top: 16px;">
-                                <h4 style="margin-bottom: 10px;">🥈 2 INVITES / 1 BOOSTS — ∞ POWER PLAN</h4>
-                                <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin: 16px 0;">
-                                    <div>
-                                        <div style="font-size: 1.2rem; font-weight: 700;">∞ Unlimited</div>
-                                        <div style="font-size: 0.9rem; opacity: 0.8;">RAM</div>
-                                    </div>
-                                    <div>
-                                        <div style="font-size: 1.2rem; font-weight: 700;">∞ Unlimited</div>
-                                        <div style="font-size: 0.9rem; opacity: 0.8;">CPU</div>
-                                    </div>
-                                    <div>
-                                        <div style="font-size: 1.2rem; font-weight: 700;">∞ Unlimited</div>
-                                        <div style="font-size: 0.9rem; opacity: 0.8;">Disk</div>
-                                    </div>
-                                </div>
-                                <p style="font-weight: 600;">🔥 Powered By: Ryzen 9 9700 @ 5.47GHz</p>
-                            </div>
-                        ` : `
-                            <p style="margin-bottom: 16px;">Get free hosting by inviting friends to our Discord server or boosting it. Higher rewards for more invites/boosts!</p>
-                            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-                                <div style="flex: 1; min-width: 200px;">
-                                    <h4 style="margin-bottom: 10px;">Invite Rewards</h4>
-                                    <p>1 Invite = 1GB RAM</p>
-                                    <p>5 Invites = 5GB RAM</p>
-                                    <p>10+ Invites = Premium Plan</p>
-                                </div>
-                                <div style="flex: 1; min-width: 200px;">
-                                    <h4 style="margin-bottom: 10px;">Boost Rewards</h4>
-                                    <p>1 Boost = 16GB RAM</p>
-                                    <p>2 Boosts = 32GB RAM</p>
-                                    <p>4+ Boosts = Elite Plan</p>
-                                </div>
-                            </div>
-                        `}
+                        ${tableContent}
                     </div>
                 `;
                 container.appendChild(eventCard);
@@ -1679,6 +1858,13 @@
                             category.classList.add('active');
                         }
                     });
+                    
+                    // Scroll to plans section if not visible
+                    const plansSection = document.getElementById('plans');
+                    const rect = plansSection.getBoundingClientRect();
+                    if (rect.top < 0 || rect.bottom > window.innerHeight) {
+                        plansSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 });
             });
             
@@ -1714,7 +1900,16 @@
         // Purchase button functionality
         function setupPurchaseButtons() {
             document.addEventListener('click', function(e) {
-                if(e.target.classList.contains('purchase-btn') || e.target.closest('.purchase-btn')) {
+                let purchaseBtn = null;
+                
+                if(e.target.classList.contains('purchase-btn')) {
+                    purchaseBtn = e.target;
+                } else if(e.target.closest('.purchase-btn')) {
+                    purchaseBtn = e.target.closest('.purchase-btn');
+                }
+                
+                if(purchaseBtn) {
+                    // Open Discord purchase channel
                     window.open('https://discord.com/channels/1454397742859288578/1459115547261276355', '_blank');
                 }
             });
@@ -1731,9 +1926,16 @@
             setupTabs();
             setupPurchaseButtons();
             
-            // Set initial active category
-            document.querySelectorAll('.plan-category').forEach((category, index) => {
-                category.classList.toggle('active', index === 0);
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                const navLinks = document.getElementById('navLinks');
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                
+                if(!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                }
             });
         });
     </script>
